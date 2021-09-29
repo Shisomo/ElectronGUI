@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello world!</title>
+    <script type="text/javascript" src="/js/vue.js"></script>
+    <style></style>
+</head>
+
+<body>
+    <div id="hello">
+        <h1> {{text}}</h1>
+        <a :href="url" target="_blank">pwrlab官网</a><br>
+        <input :value="message" @keypress.ctrl.enter="changedata"><br>
+        <input v-model="message">
+        <p>{{$createElement.length}}</p>
+        <button v-on:click="showInfo($event, text)">点我</button>
+        <button @on="showInfo2($event, message)">hhh</button>
+        <div>
+            <button @click="testfor">ddddddd</button>
+        </div>
+        <ul @wheel="gun">
+            <li>
+                Zxbjb
+            </li>
+            <li>
+                Zxbxjb
+            </li>
+            <li>
+                ysjdjb
+            </li>
+        </ul>
+        <div>
+            <input type="text" v-model="name"> <br>
+            <input type="text" v-model="first"><br>
+            <span>{{fullname}}</span>
+        </div>
+        <hr>
+        <li v-for="p in testList" :key="p">
+            {{p}}
+        </li>
+        <div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        const vm = new Vue({
+            // el:'#hello', // el 选择容器, # id, . class
+            //     data:{
+            //         text:'ddddd',
+            //         url:'http://pwrlab.cn',
+            //         message:' skdjks'
+            // }, // data 存储数据
+            // fuction写法
+            data: function () {
+                return {
+                    text: 'ddd',
+                    url: '',
+                    message: 'ddfd',
+                    name: 'ysj',
+                    first: 'dbd',
+                    testList: [
+                        { id: '001', name: 'shisomo', music: '网易' },
+                        { id: '002', name: 'shisomo2', music: 'qq' },
+                        { id: '003', name: 'shisomo3', music: 'apple' }
+                    ]
+                }
+            },
+            methods: {
+                showInfo: function (event, text) {
+                    console.log(event)
+                    alert(text)
+                },
+                showInfo2(event, text) {
+                    alert(message)
+                },
+                gun() {
+                    console.log('$')
+                },
+                changedata(e) {
+                    console.log(e.target.value)
+                    vm.message = e.target.value
+                },
+                testfor() {
+                    arr = ['a', 'b', 'c']
+                    for (let p in arr) {
+                        console.log(p)
+                    }
+
+
+                }
+            },
+            computed: {
+                fullname: {
+                    get() {
+                        return this.name + ' 0-0 ' + this.first
+                    },
+                    set(value) {
+                        return value
+                    }
+                }
+            },
+            watch: {
+                message: {// 监视message
+                    // deep:true,
+                    handler(oldValue, newValue) {
+                        console.log('message深度监视' + oldValue + '@@@' + newValue)
+
+                    }
+                }
+            },
+        })
+        console.log(vm)
+        vm.$mount('#hello')
+        let ysj = {
+            name: 'ysj',
+            like: 'zozi'
+        }
+        // 数据代理
+        Object.defineProperty(ysj, 'age', {
+            get: function () {
+                return vm.message
+            }
+        })
+        console.log(vm.url)
+        vm.url = ysj.like
+        console.log(ysj)
+    </script>
+</body>
+
+</html>
